@@ -49,62 +49,53 @@
     <div class="container">
         <h1 class="post-title">Make</h1>
 <article class="post markdown-style">
-  <ol>
-<li><p>工程管理器make</p>
+  <h3 id="工程管理器make"><a href="#工程管理器make" class="headerlink" title="工程管理器make"></a>工程管理器make</h3><p>当我们要编译成千上万个源程序文件的时候，光靠手工地使用GCC工具来达到目的也许会很没有效率。make是Linux系统的实用程序。它用于管理对于大型程序的自动编译任务，自动决定程序某一部分需要重新编译，并发出编译指令。</p>
+<h3 id="Makefile"><a href="#Makefile" class="headerlink" title="Makefile"></a>Makefile</h3><p>Makefile是make的配置文件，用来配置运行make 的时候的一些相关细节，比如指定编译选项，指定编译环境等等。一般而言，一个工程项目不管是简单还是复杂，每一个源代码子目录都会有一个Makefile 来管理，然后一般有个所谓的顶层Makefile 来统一管理所有的子目录Makefile。</p>
+<h3 id="构成"><a href="#构成" class="headerlink" title="构成"></a>构成</h3><p>简单的 Makefile 文件由若干如下格式的规则(rule)组成: target:通常是程序生成(输出)的一个或多个文件名，例如：可执行文件或目标文件；它也可以是要执行任务的名称，例如用于清理生成文件的 clean 任务。</p>
+<h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><p>make 中的变量本质是一种宏替换，用于简化和维护重复出现的字符串和字符串列表。既可以出现在目标，先决条件，也可以出现在“菜谱”的 shell 命令中；可以是命令本身，也可以是命令的选项，或者输入输出文件；甚至也可以出现在另一个变量的引用中（计算变量）。</p>
+<h3 id="定义变量"><a href="#定义变量" class="headerlink" title="定义变量"></a>定义变量</h3><p>make 变量定义和 shell 变量的定义非常相似。不同的是 make 变量的名称可以是任何不包含 :, #, = 和空字符的字符序列，并且等号两边可以有空格（shell 定义变量的等号两个不允许出现空格）。</p>
+<h3 id="使用变量"><a href="#使用变量" class="headerlink" title="使用变量"></a>使用变量</h3><p>make 变量支持和 shell 变量一样，在变量标识符前加美元符 $ 来引用，因此，如果在”菜谱”中使用 shell 变量，需要使用双美元符 $$ 作为前缀加以区分；但更推荐的使用方式是使用美元符后跟一对圆括号的方式，例如使用上文创建的变量 objs ，可以这样 $(objs)。</p>
+<h3 id="文本处理函数"><a href="#文本处理函数" class="headerlink" title="文本处理函数"></a>文本处理函数</h3><p>此类函数专门用于处理文本（字符串） </p>
 <blockquote>
-<p>当我们要编译成千上万个源程序文件的时候，光靠手工地使用GCC工具来达到目的也许会很没有效率。make是Linux系统的实用程序。它用于管理对于大型程序的自动编译任务，自动决定程序某一部分需要重新编译，并发出编译指令。</p>
-</blockquote>
-</li>
-</ol>
-<ol start="2">
-<li><p>Makefile</p>
-<blockquote>
-<p>Makefile是make的配置文件，用来配置运行make 的时候的一些相关细节，比如指定编译选项，指定编译环境等等。一般而言，一个工程项目不管是简单还是复杂，每一个源代码子目录都会有一个Makefile 来管理，然后一般有个所谓的顶层Makefile 来统一管理所有的子目录Makefile。</p>
-</blockquote>
-</li>
-</ol>
-<ol start="3">
-<li>构成<blockquote>
-<p>简单的 Makefile 文件由若干如下格式的规则(rule)组成:</p>
+<p>$(subst FROM,TO,TEXT)</p>
 </blockquote>
 <ul>
-<li>target:通常是程序生成(输出)的一个或多个文件名，例如：可执行文件或目标文件；它也可以是要执行任务的名称，例如用于清理生成文件的 clean 任务。</li>
-<li>prerequisites:先决条件是用于生成 target 文件的输入文件或是完成 target 任务前需要先执行的任务 。一个 target 可以没有先决条件，也可以有一个或多个先决条件。</li>
-<li>recipe: 中文翻译为菜谱，它是 make 用于生成 target 文件或完成 target 任务而执行一系列 shell 命令。这些命令可以放在同一行里，也可以每个命令占一行。值得注意的是，recipe 默认以制表符开头，而不是空格。</li>
+<li>功能：将字符串TEXT 中的字符FROM 替换为TO。</li>
+<li>返回：替换之后的新字符串</li>
+<li>范例：A = $(subst pp,PP,apple tree)替换之后变量A 的值是”aPPle tree”</li>
 </ul>
-</li>
-</ol>
-<ol start="4">
-<li>变量<blockquote>
-<p>make 中的变量本质是一种宏替换，用于简化和维护重复出现的字符串和字符串列表。既可以出现在目标，先决条件，也可以出现在“菜谱”的 shell 命令中；可以是命令本身，也可以是命令的选项，或者输入输出文件；甚至也可以出现在另一个变量的引用中（计算变量）。</p>
-</blockquote>
-</li>
-</ol>
-<ol start="5">
-<li>定义变量<blockquote>
-<p>make 变量定义和 shell 变量的定义非常相似。不同的是 make 变量的名称可以是任何不包含 :, #, = 和空字符的字符序列，并且等号两边可以有空格（shell 定义变量的等号两个不允许出现空格）。</p>
-</blockquote>
-</li>
-</ol>
-<ol start="6">
-<li><p>使用变量</p>
 <blockquote>
-<p>make 变量支持和 shell 变量一样，在变量标识符前加美元符 $ 来引用，因此，如果在”菜谱”中使用 shell 变量，需要使用双美元符 $$ 作为前缀加以区分；但更推荐的使用方式是使用美元符后跟一对圆括号的方式，例如使用上文创建的变量 objs ，可以这样 $(objs)。</p>
-</blockquote>
-</li>
-<li><p>文本处理函数</p>
-<blockquote>
-<p>此类函数专门用于处理文本（字符串）</p>
+<p>$(patsubst PATTERN,REPLACEMENT,TEXT)</p>
 </blockquote>
 <ul>
-<li>$(subst FROM,TO,TEXT)<br>功能：将字符串TEXT 中的字符FROM 替换为TO。返回：替换之后的新字符串。范例：A = $(subst pp,PP,apple tree)替换之后变量A 的值是”aPPle tree”</li>
-<li>$(patsubst PATTERN,REPLACEMENT,TEXT)功能：按照PATTERN 搜索TEXT 中所有以空格隔开的单词， 并将它们替换为REPLACEMENT。注意：参数PATTERN 可以使用模式通配符%来代表一个单词中的若干字符，如果此时REPLACEMENT 中也出现%，那么REPLACEMENT 中的%跟PATTERN 中的%是一样的。返回：替换之后的新字符串。范例：A = $(patsubst %.c,%.o,a.c b.c)替换之后变量A 的值是”a.o b.o”</li>
-<li>$(strip STRING)功能：去掉字符串中开头和结尾的多余的空白符（掐头去尾），并将其中连续的多个空白符合并为一个。注意：所谓的空白符指的是空格、制表符。返回：去掉多余空白符之后的新字符串。范例：A = $(strip apple tree )处理之后，变量A 的值是”apple tree”</li>
-<li>$(findstring FIND, STRING)功能：在给定的字符串STRING 中查找FIND 子串。返回：找到则返回FIND，否额返回空。范例：A = $(findstring pp, apple tree)B = $(findstring xx, apple tree)变量A 的值是”pp”，变量B 的值是空。</li>
-<li>$(filter PATTERN,TEXT)功能：过滤掉TEXT 中所有不符合给定模式PATTERN 的单词。其中PATTERN 可以是多个模式的组合。返回：TEXT 中所有符合模式组合PATTERN 的单词组成的子串。范例：A = a.c b.o c.s d.txt, B = $(filter %.c %.o,$(A))过滤后变量B 的值是”a.c b.o”。</li>
+<li>功能：按照PATTERN 搜索TEXT 中所有以空格隔开的单词， 并将它们替换为REPLACEMENT。</li>
+<li>注意：参数PATTERN 可以使用模式通配符%来代表一个单词中的若干字符，如果此时REPLACEMENT 中也出现%，那么REPLACEMENT 中的%跟PATTERN 中的%是一样的。</li>
+<li>返回：替换之后的新字符串。范例：A = $(patsubst %.c,%.o,a.c b.c)替换之后变量A 的值是”a.o b.o”</li>
 </ul>
-</li>
-</ol>
+<blockquote>
+<p> $(strip STRING)</p>
+</blockquote>
+<ul>
+<li>功能：去掉字符串中开头和结尾的多余的空白符（掐头去尾），并将其中连续的多个空白符合并为一个。</li>
+<li>注意：所谓的空白符指的是空格、制表符。返回：去掉多余空白符之后的新字符串。</li>
+<li>范例：A = $(strip apple tree )处理之后，变量A 的值是”apple tree”</li>
+</ul>
+<blockquote>
+<p>$(findstring FIND, STRING)</p>
+</blockquote>
+<ul>
+<li>功能：在给定的字符串STRING 中查找FIND 子串。</li>
+<li>返回：找到则返回FIND，否额返回空。</li>
+<li>范例：A = $(findstring pp, apple tree)B = $(findstring xx, apple tree)变量A 的值是”pp”，变量B 的值是空。</li>
+</ul>
+<blockquote>
+<p>$(filter PATTERN,TEXT)</p>
+</blockquote>
+<ul>
+<li>功能：过滤掉TEXT 中所有不符合给定模式PATTERN 的单词。其中PATTERN 可以是多个模式的组合。</li>
+<li>返回：TEXT 中所有符合模式组合PATTERN 的单词组成的子串。</li>
+<li>范例：A = a.c b.o c.s d.txt, B = $(filter %.c %.o,$(A))过滤后变量B 的值是”a.c b.o”。</li>
+</ul>
 
 </article>
 
